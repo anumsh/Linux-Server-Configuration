@@ -104,19 +104,21 @@ It is give you additional  information(login , name , shell, directory, phone nu
 * You then need to configure Apache to handle requests using the WSGI module. You’ll do this by editing the /`etc/apache2/sites-enabled/000-default.conf` file. This file tells Apache how to respond to requests, where to find the files for a particular site and much more.
 * add the following line at the end of the <VirtualHost *:80> block, right before the closing </VirtualHost> line: `WSGIScriptAlias / /var/www/html/myapp.wsgi`
 * You might get following error when you restart the apache:
-    `AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message.`
+```
+ AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message.`
+```
+ Do :
+* `sudo nano /etc/apache2/conf-available/fqdn.conf`
+* add this line :  `Servername ip-10-20-45-188` 
+* `sudo a2enconf fqdn`   and save the file.
 
-    do :
+OR 
+
 `echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqdn.conf && sudo a2enconf fqdn`
 
-or
-$ `sudo nano /etc/apache2/conf-available/fqdn.conf`
-and add below line :
-`ServerName localhost`
-	or
-`Servername ip-10-20-45-188` and save the file.
 
-*Note:-----* you might not have permission to modify fqdn.conf file because only root user and group can modify this file. Privileged access is required to access that directory. Use `sudo -i` to gain privileged access. Be sure to exit privileged mode when finished performing privileged tasks.
+*Note:-----* 
+You might not have permission to modify fqdn.conf file because only root user and group can modify this file. Privileged access is required to access that directory. Use `sudo -i` to gain privileged access. Be sure to exit privileged mode when finished performing privileged tasks.
 
 * restart Apache with the `sudo service apache2 restart` command.
 * To test if you have your Apache configuration correct you’ll write  a very basic WSGI application.Create the /var/www/html/myapp.wsgi file using the command `sudo nano /var/www/html/myapp.wsgi`. Within this file, write the following application:
@@ -213,6 +215,25 @@ close and save the file.
 ```
  Save and close the file.
  * Enable virtual host using :  `udo a2ensite FlaskApp`
+
+*Note----* 
+
+* You might get :-
+```
+AH00094: Command line: '/usr/sbin/apache2'
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message
+   ...done.
+```
+ error for FlaskApp.conf file, so edit the FlaskApp.conf file by setting your Servername, ServerAdmin as:
+```
+<VirtualHost *:80>
+         ServerName 35.165.147.241
+         ServerAdmin admin@35.165.147.241
+         ServerAlias ec2-35-165-147-241.us-west-2.compute.amazonaws.com
+``` 
+
+You will not get this error  again.
+
 
 #### step-5
  * Create the wsgi file using:  `cd /var/www/catalog`
