@@ -6,16 +6,17 @@ Installation of a Linux distribution on a virtual machine and prepare it to host
 * Local IP address: http://35.165.147.241/
 * SSh port- 2200
 * Login with: `ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@35.165.147.241`
+
 * Generate public Key for udacity_key.rsa :
- ..* go to .ssh folder of your local machine in which you paste your udacity_key.rsa private key.
- ..* type this command - `ssh-keygen -y -f udacity_key.rsa` to print the public key .
- ..* copy and paste this public key in  `/home/grader/.ssh/authorized_keys` so that reviewer can login into grader account .
+* go to .ssh folder of your local machine in which you paste your udacity_key.rsa private key.
+* type this command - `ssh-keygen -y -f udacity_key.rsa` to print the public key .
+* copy and paste this public key in  `/home/grader/.ssh/authorized_keys` so that reviewer can login into grader account .
 
 ## Configuration Steps:
 ### Step 1 : Launch your Virtual Machine with your Udacity account
 * Development Environment Information Details:-
-  ..* Public IP Address -  35.165.147.241
-  ..* Private Key - Can't be shared
+  * Public IP Address -  35.165.147.241
+  * Private Key - Can't be shared
 
 ### Step-2: Follow the instructions provided to SSH into your server
 * `mv ~/Downloads/udacity_key.rsa ~/.ssh/`
@@ -48,10 +49,10 @@ It is give you additional  information(login , name , shell, directory, phone nu
 
 ### Step-6 : Change the SSH port from 22 to 2200
 *  root@ip-10-20-63-124:~# `nano /etc/ssh/sshd_config`
-    ..* change port from 22 to 2200
-    ..* change `PermitRootLogin without-password` to `PermitRootLogin no` . it is disable root login.
-    ..* change `PasswordAuthentication` from no to yes.
-    ..* add `AllowUsers grader` at end of the file so that we will login through grader.
+    * change port from 22 to 2200
+    * change `PermitRootLogin without-password` to `PermitRootLogin no` . it is disable root login.
+    * change `PasswordAuthentication` from no to yes.
+    * add `AllowUsers grader` at end of the file so that we will login through grader.
 * restart the SSH service :
     `sudo service ssh restart`
 
@@ -257,7 +258,7 @@ application.secret_key = 'Add your secret key'
     `sudo nano database_setup.py`
 * update the create_engine line:
 `python engine = create_engine('postgresql://catalog:catalog-pw@localhost/catalog')`
-*Update the create_engine line in project.py and lotsofmenus.py too.
+* Update the create_engine line in project.py and lotsofmenus.py too.
 * move the project.py file to __init__.py file :
     mv application.py __init__.py
 * Change to default user postgres:
@@ -279,11 +280,11 @@ application.secret_key = 'Add your secret key'
 * Grant the access to catalog:
     GRANT ALL ON SCHEMA public TO catalog;`
 * Once you execute database_setup.py , again you can login as psql and check all the tables with following commands:
-	..* connect to database using : `\c catalog`
-	..* To see the tables in schema :` \dt`
-	..* to see particular table:` \d [tablename]`
-	..* to see the entries/data in table :`select * from [tablename];`
-	..* to drop the table:`drop table [tablename];`
+	* connect to database using : `\c catalog`
+	* To see the tables in schema :` \dt`
+	* to see particular table:` \d [tablename]`
+	* to see the entries/data in table :`select * from [tablename];`
+	* to drop the table:`drop table [tablename];`
 * exit from Postgresql : `\q `then `exit `from postgresql user.
 * restart postgresql: `sudo service postgresql restart`
 
@@ -297,8 +298,8 @@ application.secret_key = 'Add your secret key'
 * in /var/www/catalog/catalog directory : execute -  `python __init__.py`
 * type  public IPaddress (`http://35.165.147.241/`) on URL and you will see your Restaurant Webpage.
 
-*Note: *It might be some errors occured when you execute `__init__.py` file.It can be :
-..* related to catalog.conf file in `/etc/apache2/sites-available/catalog.conf` .
+* *Note*: It might be some errors occured when you execute `__init__.py` file.It can be :
+* related to catalog.conf file in `/etc/apache2/sites-available/catalog.conf` .
 ```
         WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
         <Directory /var/www/FlaskApp/FlaskApp/>
@@ -307,17 +308,17 @@ application.secret_key = 'Add your secret key'
 ```
  change the path /var/www/FlaskApp/flaskapp.wsgi to `/var/www/catalog/catalog.wsgi` in all lines .
 
-..* related to client_secrets.json and fb_client_secrets.json files. You need to give absolute path to these files .
+* related to client_secrets.json and fb_client_secrets.json files. You need to give absolute path to these files .
 change the ```CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']``` to
     ```CLIENT_ID = json.loads(
     open(r'/var/www/catalog/catalog/client_secrets.json', 'r').read())['web']['client_id']```
     Similarly for `fb_client_secrets.json` file.
 
-..* check your errors in /var/log/apache2/error.log files.
+* check your errors in /var/log/apache2/error.log files.
          `tail -10 /var/log/apache2/error.log` to see last 10 lines of file.
 
-..* Make sure after you recorrect your error , restart the apache2 server.
+* Make sure after you recorrect your error , restart the apache2 server.
 
 **Resources -** [Udacity Discussion Forum](https://discussions.udacity.com/t/client-secret-json-not-found-error/34070) , [forum post]( https://discussions.udacity.com/t/how-to-login-to-my-aws-virtual-server-as-new-user-grader/201164/4).
 
@@ -330,17 +331,17 @@ change the ```CLIENT_ID = json.loads(
 * restart the apacheserver : `sudo service apache2 restart`.
 
 * Google Authorization steps:
-..* Go to [console.developer](https://console.developers.google.com/)
-..* click on Credentails --> edit
-..* add you hostname (http://ec2-35-165-147-241.us-west-2.compute.amazonaws.com  ) and public IP address (http://35.165.147.241) to Authorised JavaScript origins.
-..* add hostname (http://ec2-35-165-147-241.us-west-2.compute.amazonaws.com/oauth2callback) to Authorised redirect URIs.
-..* update the client_secret.json file too(adding hostname and public IP address).
+* Go to [console.developer](https://console.developers.google.com/)
+* click on Credentails --> edit
+* add you hostname (http://ec2-35-165-147-241.us-west-2.compute.amazonaws.com  ) and public IP address (http://35.165.147.241) to Authorised JavaScript origins.
+* add hostname (http://ec2-35-165-147-241.us-west-2.compute.amazonaws.com/oauth2callback) to Authorised redirect URIs.
+* update the client_secret.json file too(adding hostname and public IP address).
 
 * Facebook Authorization steps:
-..* Go to [developer.facebook](https://developers.facebook.com/)
-..* open your application and click on Facebook Login --> settings.
-..* Add hostname and public IP address to Valid OAuth redirect URIs and save it.
-..* update the fb_client_secret.json file too.
+* Go to [developer.facebook](https://developers.facebook.com/)
+* open your application and click on Facebook Login --> settings.
+* Add hostname and public IP address to Valid OAuth redirect URIs and save it.
+* update the fb_client_secret.json file too.
 
 **Resources -** [Udacity Discussion Forum](https://discussions.udacity.com/t/setting-facebook-valid-oauth-redirect-uris/160617) , [Forum post](https://discussions.udacity.com/t/oauth-course-google-sign-in-doesnt-work/15444/2).
 
@@ -351,15 +352,15 @@ change the ```CLIENT_ID = json.loads(
 The unattended-upgrades package can be used to automatically install updated packages, and can be configured to update all packages or just install security updates.
 
 * `sudo apt install unattended-upgrades`
-* edit the file in `/etc/apt/apt.conf.d/50unattended-upgrades`
-  ..* uncomment the line - `"${distro_id}:${distro_codename}-updates" `and save it
-  ..* open the file in /etc/apt/apt.conf.d/10periodic
-    ```
-    APT::Periodic::Update-Package-Lists "1";
-    APT::Periodic::Download-Upgradeable-Packages "1";
-    APT::Periodic::AutocleanInterval "7";
-    ```
-* The results of unattended-upgrades will be logged to /var/log/unattended-upgrades.
+*  edit the file in `/etc/apt/apt.conf.d/50unattended-upgrades`
+*  uncomment the line - `"${distro_id}:${distro_codename}-updates" `and save it
+*  open the file in /etc/apt/apt.conf.d/10periodic
+ 
+    `APT::Periodic::Update-Package-Lists "1";`
+    `APT::Periodic::Download-Upgradeable-Packages "1";`
+    `APT::Periodic::AutocleanInterval "7";`
+    
+* The results of unattended-upgrades will be logged to `/var/log/unattended-upgrades`.
 
 Note: Make sure once you run all commands , run the command - `sudo service apache2 restart`
 
@@ -373,10 +374,14 @@ Fail2Ban is able to reduce the rate of incorrect authentications attempts howeve
 
 * Install it using `sudo apt-get install fail2ban`
 * open the jail.local file using  `sudo vim /etc/fail2ban/jail.local`.   change the settings :
-     set bantime  = 1800
+```
+	set bantime  = 1800
      destemail = useremail@domain
      action = %(action_mwl)s
-     under [ssh] change port = 2220 and save it .
+     under [ssh] change port = 2220 
+```
+
+and save it .
 * Install sendmail for email notice - `sudo apt-get install sendmail iptables-persistent`
 * stop the service - `sudo service fail2ban stop`
 * start the service - `sudo service fail2ban start`
