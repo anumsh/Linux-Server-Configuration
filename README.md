@@ -227,6 +227,17 @@ sys.path.insert(0,"/var/www/FlaskApp/")
 from FlaskApp import app as application
 application.secret_key = 'Add your secret key'
 ```
+* Directory structure should be :
+```
+|--------catalog
+|----------------catalog
+|-----------------------static
+|-----------------------templates
+|-----------------------venv
+|-----------------------__init__.py
+|----------------catalog.wsgi
+
+```
 
 #### step-6
 * Restart Apache :  `sudo service apache2 restart`
@@ -240,9 +251,12 @@ application.secret_key = 'Add your secret key'
 * paste the content - `RedirectMatch 404 /\.git` in this file and save it .
 * You can delete unwanted files in your folder (for example - readme, vagrant folder etc) and your folder should look like :
 ```
+grader@ip-10-20-63-124:/var/www/catalog$ ls
+catalog  catalog.wsgi
+grader@ip-10-20-63-124:/var/www/catalog$ cd catalog/
 grader@ip-10-20-63-124:/var/www/catalog/catalog$ ls
 client_secrets.json  fb_client_secrets.json  lotsofmenus.py  templates
-database_setup.py    __init__.py             static          venv
+database_setup.py    __init__.py     project.py        static          venv
 
 ```
 
