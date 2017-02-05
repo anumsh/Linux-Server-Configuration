@@ -8,9 +8,9 @@ Installation of a Linux distribution on a virtual machine and prepare it to host
 * Login with: `ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@35.165.147.241`
 
 * Generate public Key for udacity_key.rsa :
-* go to .ssh folder of your local machine in which you paste your udacity_key.rsa private key.
-* type this command - `ssh-keygen -y -f udacity_key.rsa` to print the public key .
-* copy and paste this public key in  `/home/grader/.ssh/authorized_keys` so that reviewer can login into grader account .
+  * go to .ssh folder of your local machine in which you paste your udacity_key.rsa private key.
+  * type this command - `ssh-keygen -y -f udacity_key.rsa` to print the public key .
+  * copy and paste this public key in  `/home/grader/.ssh/authorized_keys` so that reviewer can login into grader account .
 
 ## Configuration Steps:
 ### Step 1 : Launch your Virtual Machine with your Udacity account
@@ -26,8 +26,10 @@ Installation of a Linux distribution on a virtual machine and prepare it to host
 ### Step-3 : Create a new user named grader
 * `sudo adduser grader`
 * To check the User(grader) information :
-    `sudo apt-get install finger`
-    `finger grader`
+```
+    sudo apt-get install finger
+    finger grader
+```
 It is give you additional  information(login , name , shell, directory, phone number etc) of User-grader
 
 
@@ -113,7 +115,7 @@ and add below line :
 	or
 `Servername ip-10-20-45-188` and save the file.
 
-*Note:* you might not have permission to modify fqdn.conf file because only root user and group can modify this file. Privileged access is required to access that directory. Use `sudo -i` to gain privileged access. Be sure to exit privileged mode when finished performing privileged tasks.
+*Note:-----* you might not have permission to modify fqdn.conf file because only root user and group can modify this file. Privileged access is required to access that directory. Use `sudo -i` to gain privileged access. Be sure to exit privileged mode when finished performing privileged tasks.
 
 * restart Apache with the `sudo service apache2 restart` command.
 * To test if you have your Apache configuration correct you’ll write  a very basic WSGI application.Create the /var/www/html/myapp.wsgi file using the command `sudo nano /var/www/html/myapp.wsgi`. Within this file, write the following application:
@@ -135,8 +137,10 @@ and add below line :
 ### Step 11: Install Git
 *  Install git using `sudo apt-get install git`
 * set up git using :
+```
         git config --global user.name "username"
         git config --global user.email "email@domain.com"
+```
 * check the configurations items using `git config --list`
 
 **Resources -** [install git](https://help.github.com/articles/set-up-git/) , [install git on ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-14-04)
@@ -232,13 +236,13 @@ application.secret_key = 'Add your secret key'
 
 ### Step-13 : Clone the Github Repository
 * `sudo mv Item-Catalog_ND-Project /var/www/catalog/catalog/`
-* move the Item-Catalog_ND-Project directory to /var/www/catalog/catalog.
-* To make github repository inaccessible  make a .htaccess file in /var/www/catalog.
+* move the Item-Catalog_ND-Project directory to `/var/www/catalog/catalog`.
+* To make github repository inaccessible  make a .htaccess file in `/var/www/catalog`.
 * paste the content - `RedirectMatch 404 /\.git` in this file and save it .
 
 ### Step-14: Install other Packages
 * `sudo apt-get install python-pip`
-* source venv/bin/activate
+* `source venv/bin/activate`
 * `pip install httplib2`
 * `pip install requests`
 * `sudo pip install --upgrade oauth2client`
@@ -257,7 +261,7 @@ application.secret_key = 'Add your secret key'
 * open database_setup.py using :
     `sudo nano database_setup.py`
 * update the create_engine line:
-`python engine = create_engine('postgresql://catalog:catalog-pw@localhost/catalog')`
+	`python engine = create_engine('postgresql://catalog:catalog-pw@localhost/catalog')`
 * Update the create_engine line in project.py and lotsofmenus.py too.
 * move the project.py file to __init__.py file :
     mv application.py __init__.py
@@ -331,17 +335,17 @@ change the ```CLIENT_ID = json.loads(
 * restart the apacheserver : `sudo service apache2 restart`.
 
 * Google Authorization steps:
-* Go to [console.developer](https://console.developers.google.com/)
-* click on Credentails --> edit
-* add you hostname (http://ec2-35-165-147-241.us-west-2.compute.amazonaws.com  ) and public IP address (http://35.165.147.241) to Authorised JavaScript origins.
-* add hostname (http://ec2-35-165-147-241.us-west-2.compute.amazonaws.com/oauth2callback) to Authorised redirect URIs.
-* update the client_secret.json file too(adding hostname and public IP address).
+  * Go to [console.developer](https://console.developers.google.com/)
+  * click on Credentails --> edit
+  * add you hostname (http://ec2-35-165-147-241.us-west-2.compute.amazonaws.com  ) and public IP address (http://35.165.147.241) to Authorised   JavaScript origins.
+  * add hostname (http://ec2-35-165-147-241.us-west-2.compute.amazonaws.com/oauth2callback) to Authorised redirect URIs.
+  * update the client_secret.json file too(adding hostname and public IP address).
 
 * Facebook Authorization steps:
-* Go to [developer.facebook](https://developers.facebook.com/)
-* open your application and click on Facebook Login --> settings.
-* Add hostname and public IP address to Valid OAuth redirect URIs and save it.
-* update the fb_client_secret.json file too.
+  * Go to [developer.facebook](https://developers.facebook.com/)
+  * open your application and click on Facebook Login --> settings.
+  * Add hostname and public IP address to Valid OAuth redirect URIs and save it.
+  * update the fb_client_secret.json file too.
 
 **Resources -** [Udacity Discussion Forum](https://discussions.udacity.com/t/setting-facebook-valid-oauth-redirect-uris/160617) , [Forum post](https://discussions.udacity.com/t/oauth-course-google-sign-in-doesnt-work/15444/2).
 
@@ -354,11 +358,12 @@ The unattended-upgrades package can be used to automatically install updated pac
 * `sudo apt install unattended-upgrades`
 *  edit the file in `/etc/apt/apt.conf.d/50unattended-upgrades`
 *  uncomment the line - `"${distro_id}:${distro_codename}-updates" `and save it
-*  open the file in /etc/apt/apt.conf.d/10periodic
- 
-    `APT::Periodic::Update-Package-Lists "1";`
-    `APT::Periodic::Download-Upgradeable-Packages "1";`
-    `APT::Periodic::AutocleanInterval "7";`
+*  open the file in /etc/apt/apt.conf.d/10periodic and edit the upgrade-package and autocleaninterval values:
+```
+    APT::Periodic::Update-Package-Lists "1";
+    APT::Periodic::Download-Upgradeable-Packages "1";
+    APT::Periodic::AutocleanInterval "7";
+```
     
 * The results of unattended-upgrades will be logged to `/var/log/unattended-upgrades`.
 
