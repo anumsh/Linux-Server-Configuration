@@ -2,9 +2,10 @@
 
 Installation of a Linux distribution on a virtual machine and prepare it to host your web application(Item Catalog). It includes installing updates, securing it from a number of attack vectors and installing/configuring web and database servers.
 
-* The EC2 URL is : http://ec2-35-165-147-241.us-west-2.compute.amazonaws.com/
-* Local IP address: http://35.165.147.241/
-* SSh port- 2200
+* The EC2 URL is : `http://ec2-35-165-147-241.us-west-2.compute.amazonaws.com/`
+* Local IP address: `http://35.165.147.241/`
+* SSH port- `2200`
+
 * Login with: `ssh -i ~/.ssh/udacity_key.rsa -p 2200 grader@35.165.147.241`
 
 * Generate public Key for udacity_key.rsa :
@@ -51,7 +52,7 @@ It is give you additional  information(login , name , shell, directory, phone nu
 
 ### Step-6 : Change the SSH port from 22 to 2200
 *  root@ip-10-20-63-124:~# `nano /etc/ssh/sshd_config`
-    * change port from 22 to 2200
+    * change port from `22` to `2200`
     * change `PermitRootLogin without-password` to `PermitRootLogin no` . it is disable root login.
     * change `PasswordAuthentication` from no to yes.
     * add `AllowUsers grader` at end of the file so that we will login through grader.
@@ -179,22 +180,19 @@ close and save the file.
 
 #### step-3
 * Now , we will create a virtual environment for our flask application.  use pip to install virtualenv and Flask. Install pip :
-
-        sudo apt-get install python-pip
-
-* Install virtualenv:
-        sudo pip install virtualenv
-
+    `sudo apt-get install python-pip`
+* Install virtualenv:   `sudo pip install virtualenv`
 * Set enviornment name using : `sudo virtualenv venv`
 * Install Flask in that environment by activating the virtual environment using : `source venv/bin/activate`
 * Install Flask using : `sudo pip install Flask`
-* Run the following command to test if the installation is  successful and the app is running:  ```sudo python __init__.py```
+* Run the following command to test if the installation is successful and the app is running:  `sudo python __init__.py`
 * It should display "Running on `http://127.0.0.1:5000/"`. If you see this message, you have successfully configured the app.
 * To deactivate the environment : `deactivate`
 
 #### step-4
 * Run - `sudo nano /etc/apache2/sites-available/FlaskApp.conf`
 * configure the virtual host adding your Servername:
+```
     <VirtualHost *:80>
         ServerName mywebsite.com
         ServerAdmin admin@mywebsite.com
@@ -212,6 +210,7 @@ close and save the file.
         LogLevel warn
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
+```
  Save and close the file.
  * Enable virtual host using :  `udo a2ensite FlaskApp`
 
@@ -239,6 +238,13 @@ application.secret_key = 'Add your secret key'
 * move the Item-Catalog_ND-Project directory to `/var/www/catalog/catalog`.
 * To make github repository inaccessible  make a .htaccess file in `/var/www/catalog`.
 * paste the content - `RedirectMatch 404 /\.git` in this file and save it .
+* You can delete unwanted files in your folder (for example - readme, vagrant folder etc) and your folder should look like :
+```
+grader@ip-10-20-63-124:/var/www/catalog/catalog$ ls
+client_secrets.json  fb_client_secrets.json  lotsofmenus.py  templates
+database_setup.py    __init__.py             static          venv
+
+```
 
 ### Step-14: Install other Packages
 * `sudo apt-get install python-pip`
@@ -282,7 +288,7 @@ application.secret_key = 'Add your secret key'
 * Revoke all the rights :
     `REVOKE ALL ON SCHEMA public FROM public;`
 * Grant the access to catalog:
-    GRANT ALL ON SCHEMA public TO catalog;`
+    `GRANT ALL ON SCHEMA public TO catalog;`
 * Once you execute database_setup.py , again you can login as psql and check all the tables with following commands:
 	* connect to database using : `\c catalog`
 	* To see the tables in schema :` \dt`
