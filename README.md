@@ -109,7 +109,7 @@ It is give you additional  information(login , name , shell, directory, phone nu
 ```
  Do :
 * `sudo nano /etc/apache2/conf-available/fqdn.conf`
-* add this line :  `Servername ip-10-20-45-188` 
+* add this line :  `Servername ip-10-20-63-124` 
 * `sudo a2enconf fqdn`   and save the file.
 
 OR 
