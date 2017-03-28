@@ -44,7 +44,7 @@ It is give you additional  information(login , name , shell, directory, phone nu
 
 **Resources -** [Add User and give permissions](https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-an-ubuntu-14-04-vps)
 
-###Step-5 : Update all currently installed packages
+### Step-5 : Update all currently installed packages
 * `sudo apt-get update` - command will  update list of packages and their versions on your machine.
 * `sudo apt-get upgrade` - command will install the packages
 
